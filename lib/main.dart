@@ -30,7 +30,10 @@ class HomeScreen extends StatelessWidget {
       FirebaseFirestore.instance.collection('groceryplus');
   final fromKeyEdit = GlobalKey<FormState>();
 
-  addData([DocumentSnapshot? documentSnapshot]) async {}
+  Future<void> delete(String id) async {
+    await _reference.doc(id).delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +59,12 @@ class HomeScreen extends StatelessWidget {
                   return ListTile(
                     title: Text(docSnap['title']),
                     subtitle: Text(docSnap['description']),
+                    leading: IconButton(
+                      onPressed: () {
+                        delete(docSnap.id);
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
                     trailing: IconButton(
                         onPressed: () {
                           showModalBottomSheet(
