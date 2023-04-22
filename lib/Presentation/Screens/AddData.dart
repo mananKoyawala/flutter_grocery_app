@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:grocery_plus/Logic/Controller/FormController.dart';
 
 class AddData extends StatelessWidget {
   AddData({super.key, required this.referance});
+
+  FormController controller = FormController();
   upload() async {
-    await referance.add(
-        {"title": title.text, "description": desc.text, "price": price.text});
+    await referance.add({
+      "title": controller.title.text,
+      "description": controller.desc.text,
+      "price": controller.price.text
+    });
   }
 
   final CollectionReference referance;
-  final title = TextEditingController();
-  final price = TextEditingController();
-  final desc = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +25,13 @@ class AddData extends StatelessWidget {
       body: Column(
         children: [
           TextFormField(
-            controller: title,
+            controller: controller.title,
           ),
           TextFormField(
-            controller: price,
+            controller: controller.price,
           ),
           TextFormField(
-            controller: desc,
+            controller: controller.desc,
           ),
           ElevatedButton(
               onPressed: () {
