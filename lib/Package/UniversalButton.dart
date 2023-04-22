@@ -48,7 +48,7 @@ class _UniversalButtonState extends State<UniversalButton> {
                 ? widget.backgroundColor
                 : MyColor.white,
             borderRadius: BorderRadius.circular(widget.radius)),
-        child: TextFW400(
+        child: TextFW500(
           text: widget.title,
           fontSize: widget.fontSize ?? 18,
           textcolor: widget.showBorder == false

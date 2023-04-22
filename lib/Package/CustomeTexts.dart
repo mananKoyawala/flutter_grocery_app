@@ -29,8 +29,8 @@ class TextFW700 extends StatelessWidget {
   }
 }
 
-class TextFW400 extends StatelessWidget {
-  const TextFW400(
+class TextFW500 extends StatelessWidget {
+  const TextFW500(
       {super.key,
       required this.text,
       this.textcolor,
@@ -54,7 +54,7 @@ class TextFW400 extends StatelessWidget {
       style: TextStyle(
         fontFamily: fontFamily,
         fontSize: fontSize,
-        fontWeight: fontWeight ?? FontWeight.w400,
+        fontWeight: fontWeight ?? FontWeight.w500,
         color: textcolor ?? Colors.black,
       ),
     );
