@@ -49,6 +49,11 @@ dev_dependencies:
   firebase_core: ^2.10.0
   get: ^4.6.5
   flutter_svg: ^2.0.5
+  easy_loading: ^0.0.4
+  dotted_border: ^2.0.0+3
+  firebase_storage: ^11.1.1
+  image_picker: ^0.8.7+4
+  intl: ^0.18.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,10 +81,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.otf
+    - family: poppinsSemi
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

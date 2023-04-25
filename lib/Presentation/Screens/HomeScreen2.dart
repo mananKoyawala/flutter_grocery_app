@@ -70,7 +70,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
               controller: controller,
               itemCount: list.length,
               itemBuilder: (context, index) {
-                return CP(v: 50, h: 16, child: Text(list[index]['id']));
+                return CP(v: 50, h: 16, child: Text(list[index]['title']));
               },
             )),
             isLoaingData

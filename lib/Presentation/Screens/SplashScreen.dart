@@ -4,7 +4,7 @@ import 'package:grocery_plus/Presentation/Screens/HomeScreen2.dart';
 import 'package:grocery_plus/Presentation/Utils/Constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../Package/Constants.dart';
-import 'HomeScreen.dart';
+import 'MainScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   moveToNext() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MainScreen()));
   }
 
   @override

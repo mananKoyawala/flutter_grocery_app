@@ -17,6 +17,10 @@ class DP {
     return MediaQuery.of(context).size.height * h;
   }
 
+  static width(BuildContext context, double w) {
+    return MediaQuery.of(context).size.height * w;
+  }
+
   static visibility(BuildContext context) {
     return MediaQuery.of(context).viewInsets.bottom == 0;
   }
