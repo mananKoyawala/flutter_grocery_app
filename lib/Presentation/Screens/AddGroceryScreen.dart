@@ -18,21 +18,24 @@ class AddGroceryScreen extends StatelessWidget {
   AddGroceryScreen({super.key});
   GroceryItemController controller = GroceryItemController();
 
-  validate() async {
+  validate() {
     if (controller.formKey.currentState!.validate()) {
       if (controller.isImagePicked == false) {
         ScaffoldMessenger.of(Get.context!).showSnackBar(
             const SnackBar(content: Text('Please Select Product Image')));
       } else {
         controller.imageUpload(controller.imgUrl);
-        await Future.delayed(
-          const Duration(milliseconds: 1700),
-        );
-        controller.addData();
-        controller.resetAll();
-        FocusManager.instance.primaryFocus?.unfocus();
 
-        dialogSuccess(Get.context!);
+        if (controller.image != '') {
+          controller.addData();
+          controller.resetAll();
+          FocusManager.instance.primaryFocus?.unfocus();
+
+          dialogSuccess(Get.context!);
+        } else {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
+              content: Text('Please Select Product Image Once again')));
+        }
       }
     }
   }
@@ -58,7 +61,6 @@ class AddGroceryScreen extends StatelessWidget {
           child: Form(
               key: controller.formKey,
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   sizeH(30),
                   Icon(

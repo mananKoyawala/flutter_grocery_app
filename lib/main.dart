@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:grocery_plus/Presentation/Screens/AddGroceryScreen.dart';
-import 'Presentation/Screens/HomeScreen2.dart';
-import 'Presentation/Screens/WishListDetailScreen.dart';
+import 'package:grocery_plus/Presentation/Screens/HomeScreen.dart';
+import 'package:grocery_plus/Presentation/Screens/SplashScreen.dart';
+import 'Presentation/Routes/AppRoutes.dart';
+import 'Presentation/Screens/PhoneVerificationScreen1.dart';
 import 'Presentation/Utils/Constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  AppRoute _appRoute = AppRoute();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // useInheritedMediaQuery: true,
+      // ),
       theme: ThemeData(
         fontFamily: 'poppinsSemi',
         appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: black)),
       ),
+      onGenerateRoute: _appRoute.onGenerateRoute,
       debugShowCheckedModeBanner: false,
-      home: AddGroceryScreen(),
+      // home: Authentication().handleAuthState(),
+      home: HomeScreen(),
     );
   }
 }

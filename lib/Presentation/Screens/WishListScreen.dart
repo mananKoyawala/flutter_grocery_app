@@ -23,7 +23,9 @@ class WishListScreen extends StatelessWidget {
             child: Row(
               children: [
                 ClickEffect(
-                  onTap: () {},
+                  onTap: () {
+                    Nav.pop(context);
+                  },
                   borderRadius: radius(10),
                   child: const Icon(
                     Icons.arrow_back,

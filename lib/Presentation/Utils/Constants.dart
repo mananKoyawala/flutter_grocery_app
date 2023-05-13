@@ -9,15 +9,26 @@ Color black = Colors.black;
 Color red = Colors.red;
 Color blueAccent = Colors.blueAccent;
 Color transparent = Colors.transparent;
+Color border = Colors.grey.shade200;
 
 Color themeColor = const Color(0xFF5EC401);
 Color themeColor2 = const Color(0xFFFF5552);
+Color themeColor3 = const Color(0xFFF37A20);
 Color textColor1 = const Color(0xFF37474F);
 Color textColor2 = const Color(0xFF3E3E3E);
 Color textColor3 = const Color(0xFF3E3E3E).withOpacity(.54);
 Color textColor4 = const Color(0xFFF37A20);
 Color textColor5 = const Color(0xFF37474F).withOpacity(.72);
+Color textColor6 = const Color(0xFF777777);
+Color progress = const Color(0xFF37474F).withOpacity(.14);
 Color backgroundColor1 = const Color(0xFFF3F4F4);
+Color backgroundColor2 = const Color(0xFF236CD9).withOpacity(.12);
+Color backgroundColor3 = const Color(0xFFF0F1F2);
+
+Color button1 = const Color(0xFF36B37E).withOpacity(.14);
+Color button2 = const Color(0xFF236CD9);
+Color color1 = const Color(0xFFF37A20).withOpacity(.14);
+Color color2 = const Color(0xFFFF5552).withOpacity(.14);
 
 sizeH10() {
   return const SizedBox(height: 10);
@@ -45,6 +56,11 @@ sizeW(double w) {
 
 radius(double d) {
   return BorderRadius.circular(d);
+}
+
+radiusVertical(double top, double bottom) {
+  return BorderRadius.vertical(
+      top: Radius.circular(top), bottom: Radius.circular(bottom));
 }
 
 visible(BuildContext context) {
@@ -88,3 +104,10 @@ Future<dynamic> dialogSuccess(BuildContext context) {
             ],
           ));
 }
+
+// class Nav {
+//   push(BuildContext context,String routeName) {
+//     return Navigator.pushNamed(context, routeName);
+//   }
+
+// }

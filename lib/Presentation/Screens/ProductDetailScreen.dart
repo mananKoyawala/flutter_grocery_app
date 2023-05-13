@@ -7,8 +7,8 @@ import 'package:grocery_plus/Package/ScrollColorRemove.dart';
 import 'package:grocery_plus/Presentation/Utils/Constants.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key});
-
+  ProductDetailScreen({super.key, required this.list});
+  final Map<String, dynamic> list;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,9 @@ class ProductDetailScreen extends StatelessWidget {
               child: Row(
                 children: [
                   ClickEffect(
-                    onTap: () {},
+                    onTap: () {
+                      Nav.pop(context);
+                    },
                     borderRadius: radius(10),
                     child: const Icon(
                       Icons.arrow_back,
@@ -56,7 +58,7 @@ class ProductDetailScreen extends StatelessWidget {
                             )),
                         sizeH(35),
                         TextFW500(
-                            text: 'Arla DANO Full Cream Milk Powder Instant',
+                            text: list['title'],
                             fontSize: 20,
                             textcolor: textColor1),
                         sizeH(20),
@@ -68,7 +70,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 fontSize: 29,
                                 textcolor: textColor2),
                             TextFW500(
-                                text: '৳182',
+                                text: list['price'],
                                 fontSize: 29,
                                 textcolor: themeColor),
                           ],

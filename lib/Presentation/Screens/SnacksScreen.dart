@@ -1,15 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_plus/Package/ElevatedButton.dart';
-import 'package:grocery_plus/Package/ScrollColorRemove.dart';
-import 'package:grocery_plus/Package/Constants.dart';
-import 'package:grocery_plus/Package/CustomePadding.dart';
-import 'package:grocery_plus/Package/CustomeTexts.dart';
-import 'package:grocery_plus/Package/RippleEffectContainer.dart';
-import 'package:grocery_plus/Presentation/Utils/Constants.dart';
+import 'package:grocery_plus/Presentation/Screens/ProductDetailScreen.dart';
+import '/Package/ElevatedButton.dart';
+import '/Package/ScrollColorRemove.dart';
+import '/Package/Constants.dart';
+import '/Package/CustomePadding.dart';
+import '/Package/CustomeTexts.dart';
+import '/Package/RippleEffectContainer.dart';
+import '/Presentation/Utils/Constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SnacksScreen extends StatelessWidget {
+class SnacksScreen extends StatefulWidget {
   SnacksScreen({super.key});
-  ScrollController controller = ScrollController();
+
+  @override
+  State<SnacksScreen> createState() => _SnacksScreenState();
+}
+
+class _SnacksScreenState extends State<SnacksScreen> {
+  @override
+  void initState() {
+    super.initState();
+    paginateData();
+    controller.addListener(() {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        paginateData();
+      }
+    });
+  }
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  DocumentSnapshot? lastDocument;
+  bool isMoreData = true;
+  bool isLoaingData = false;
+  List<Map<String, dynamic>> list = [];
+  final ScrollController controller = ScrollController();
+  void paginateData() async {
+    if (isMoreData) {
+      setState(() {
+        isLoaingData = true;
+      });
+      final collectionReferance = firestore.collection('groceryplus');
+      late QuerySnapshot<Map<String, dynamic>> querySnapshot;
+      if (lastDocument == null) {
+        //First time get data
+        querySnapshot = await collectionReferance.limit(10).get();
+      } else {
+        querySnapshot = await collectionReferance
+            .limit(10)
+            .startAfterDocument(lastDocument!)
+            .get();
+      }
+
+      lastDocument = querySnapshot.docs.last; //get last document of list
+
+      list.addAll(querySnapshot.docs.map((e) => e.data()));
+      isLoaingData = false;
+      setState(() {});
+      if (querySnapshot.docs.length < 10) {
+        isMoreData = false;
+      }
+    } else {
+      print('No More data');
+    }
+  }
+  // ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +78,9 @@ class SnacksScreen extends StatelessWidget {
             child: Row(
               children: [
                 ClickEffect(
-                  onTap: () {},
+                  onTap: () {
+                    Nav.pop(context);
+                  },
                   borderRadius: radius(10),
                   child: const Icon(
                     Icons.arrow_back,
@@ -44,7 +101,7 @@ class SnacksScreen extends StatelessWidget {
               child: CP(
             h: 16,
             child: GridView.builder(
-              itemCount: 10,
+              itemCount: list.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: MediaQuery.of(context).size.width /
                       (MediaQuery.of(context).size.height * .81),
@@ -53,16 +110,26 @@ class SnacksScreen extends StatelessWidget {
                   mainAxisSpacing: 11),
               itemBuilder: (context, index) {
                 return ProductContainer(
-                    price: '৳60',
+                    price: '₹ ${list[index]['price']}/-',
                     addToBag: () {},
                     //! 20 charatcter limit of title
-                    title:
-                        'Radhuni Shemai - 200 gm - 4-2-15-VD-SQ sjjsjsjsj jsjsjsj',
-                    img: 'assets/images/snack1.png',
-                    onTap: () {});
+                    title: list[index]['title'],
+                    img: list[index]['imgurl'],
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ProductDetailScreen(list: list[index])));
+                    });
               },
             ),
           )),
+          isLoaingData
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : const SizedBox(),
           sizeH(16)
         ],
       )),
@@ -99,7 +166,14 @@ class ProductContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(alignment: Alignment.center, child: Image.asset(img)),
+            Container(
+              alignment: Alignment.center,
+              height: 150,
+              child: img == ""
+                  ? Image.network(
+                      'https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg')
+                  : Image.network(img),
+            ),
             CP(
               h: 16,
               child: Column(

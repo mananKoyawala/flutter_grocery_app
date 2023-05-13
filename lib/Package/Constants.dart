@@ -27,6 +27,14 @@ class DP {
 }
 
 class Nav {
+  static push(BuildContext context, String routeName) {
+    return Navigator.pushNamed(context, routeName);
+  }
+
+  static pushMaterial(BuildContext context, Widget widget) {
+    return Navigator.push(context, MaterialPageRoute(builder: (_) => widget));
+  }
+
   static pop(BuildContext context) {
     Navigator.pop(context);
   }
@@ -43,3 +51,5 @@ class MyColor {
   static Color blackO_50 = const Color(0xFF000000).withOpacity(0.50);
   static Color rippleColor = Colors.grey.shade500;
 }
+
+Color blackO7 = const Color(0xFF000000).withOpacity(0.7);

@@ -54,6 +54,9 @@ class GroceryItemController extends GetxController {
     //! Here if we upload product image than we have to upload original name of image file
     //! But when we have to upload image for profile than we have to ref().child() is static name like username+email+gender
     await ref.putFile(File(imgUrl.path));
+    await Future.delayed(
+      const Duration(milliseconds: 1700),
+    );
     ref.getDownloadURL().then((value) {
       print('uppload Success');
       image = value;

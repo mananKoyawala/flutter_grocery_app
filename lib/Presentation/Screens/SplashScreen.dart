@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_plus/Package/CustomeTexts.dart';
 import 'package:grocery_plus/Presentation/Screens/HomeScreen2.dart';
+import 'package:grocery_plus/Presentation/Screens/PhoneVerificationScreen1.dart';
 import 'package:grocery_plus/Presentation/Utils/Constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../Package/Constants.dart';
@@ -26,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   moveToNext() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MainScreen()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => PhoneVerificationScreen1()));
   }
 
   @override

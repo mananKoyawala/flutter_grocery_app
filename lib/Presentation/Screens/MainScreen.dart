@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_plus/Logic/Controller/Authentication.dart';
 import 'package:grocery_plus/Package/CustomeTexts.dart';
+import 'package:grocery_plus/Package/ElevatedButton.dart';
 import 'package:grocery_plus/Package/RippleEffectContainer.dart';
 import 'package:grocery_plus/Package/ScrollColorRemove.dart';
+import 'package:grocery_plus/Presentation/Screens/Admin/AdminListProducts.dart';
 import 'package:grocery_plus/Presentation/Utils/Constants.dart';
 
 import '../../Package/Constants.dart';
@@ -13,62 +16,77 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ScrollColorRemove(
-            child: CP(
-      h: 16,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          sizeH(45),
-          TextFW700(
-            text: 'Category',
-            fontSize: 25,
-            textcolor: textColor1,
-            fontWeight: FontWeight.w600,
-          ),
-          Expanded(
-            child: GridView.count(
-              controller: sController,
-              crossAxisCount: 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
+      backgroundColor: white,
+      body: ScrollColorRemove(
+          child: CP(
+        h: 16,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            sizeH(45),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CategoryContainer(
-                  img: 'assets/images/img1.png',
-                  title: 'Fruits & Vegetables',
-                  onTap: () {},
+                TextFW700(
+                  text: 'Category',
+                  fontSize: 25,
+                  textcolor: textColor1,
+                  fontWeight: FontWeight.w600,
                 ),
-                CategoryContainer(
-                  img: 'assets/images/img2.png',
-                  title: 'Breakfast',
-                  onTap: () {},
-                ),
-                CategoryContainer(
-                  img: 'assets/images/img3.png',
-                  title: 'Beverages',
-                  onTap: () {},
-                ),
-                CategoryContainer(
-                  img: 'assets/images/img4.png',
-                  title: 'Meat & Fish',
-                  onTap: () {},
-                ),
-                CategoryContainer(
-                  img: 'assets/images/img5.png',
-                  title: 'Snacks',
-                  onTap: () {},
-                ),
-                CategoryContainer(
-                  img: 'assets/images/img6.png',
-                  title: 'Dairy',
-                  onTap: () {},
-                ),
+                CustomTextButton(
+                    onPressed: () {
+                      Nav.pushMaterial(context, AdminListProducts());
+                    },
+                    textStyle: TextStyle(color: textColor1, fontSize: 18),
+                    title: 'Admin')
               ],
             ),
-          ),
-        ],
-      ),
-    )));
+            Expanded(
+              child: GridView.count(
+                controller: sController,
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                children: [
+                  CategoryContainer(
+                    img: 'assets/images/img1.png',
+                    title: 'Fruits & Vegetables',
+                    onTap: () {},
+                  ),
+                  CategoryContainer(
+                    img: 'assets/images/img2.png',
+                    title: 'Breakfast',
+                    onTap: () {},
+                  ),
+                  CategoryContainer(
+                    img: 'assets/images/img3.png',
+                    title: 'Beverages',
+                    onTap: () {},
+                  ),
+                  CategoryContainer(
+                    img: 'assets/images/img4.png',
+                    title: 'Meat & Fish',
+                    onTap: () {},
+                  ),
+                  CategoryContainer(
+                    img: 'assets/images/img5.png',
+                    title: 'Snacks',
+                    onTap: () {
+                      Nav.push(context, '/snacks');
+                    },
+                  ),
+                  CategoryContainer(
+                    img: 'assets/images/img6.png',
+                    title: 'Dairy',
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
 
