@@ -58,11 +58,6 @@ radius(double d) {
   return BorderRadius.circular(d);
 }
 
-radiusVertical(double top, double bottom) {
-  return BorderRadius.vertical(
-      top: Radius.circular(top), bottom: Radius.circular(bottom));
-}
-
 visible(BuildContext context) {
   return MediaQuery.of(context).viewInsets.bottom == 0;
 }
@@ -105,9 +100,40 @@ Future<dynamic> dialogSuccess(BuildContext context) {
           ));
 }
 
-// class Nav {
-//   push(BuildContext context,String routeName) {
-//     return Navigator.pushNamed(context, routeName);
-//   }
-
-// }
+Future<dynamic> dialogEdit(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: radius(10)),
+            backgroundColor: white,
+            icon: const Icon(
+              Icons.upcoming_rounded,
+              color: Colors.blue,
+              size: 65,
+            ),
+            content: TextFW500(
+              text: 'Details are Edited!!!',
+              fontSize: 25,
+              textcolor: textColor1,
+              textAlign: TextAlign.center,
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 0),
+            actions: [
+              Center(
+                child: CustomButton(
+                  radius: 10,
+                  onPress: () {
+                    Nav.pop(context);
+                  },
+                  height: 45,
+                  width: 175,
+                  label: 'OK',
+                  txtcolor: white,
+                  bgcolor: Colors.blue,
+                ),
+              ),
+              sizeH(20)
+            ],
+          ));
+}

@@ -27,12 +27,45 @@ class Controller extends GetxController {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final priceController = TextEditingController();
+  final actualPriceController = TextEditingController();
   final descriptionController = TextEditingController();
   final brandNameController = TextEditingController();
   final stockController = TextEditingController();
   String image = '';
   var isImagePicked = false.obs;
   var imgUrl;
+
+  //* For data update
+  String title = '';
+  String price = '';
+  String actualprice = '';
+  String description = '';
+  String stock = '';
+  String brandname = '';
+
+  chnageTitl(String val) {
+    title = val;
+  }
+
+  chnagePrice(String val) {
+    price = val;
+  }
+
+  chnageActualPrice(String val) {
+    actualprice = val;
+  }
+
+  chnageDesc(String val) {
+    description = val;
+  }
+
+  chnageStock(String val) {
+    stock = val;
+  }
+
+  chnageBrand(String val) {
+    brandname = val;
+  }
 
   Reference ref = FirebaseStorage.instance.ref().child('profilePicture.png');
 
@@ -60,7 +93,8 @@ class Controller extends GetxController {
   addData() async {
     await reference.add({
       'title': titleController.text,
-      'price': priceController.text,
+      'offerprice': priceController.text,
+      'actualprice': actualPriceController.text,
       'description': descriptionController.text,
       'imgurl': image,
       'time': DateTime.now(),
@@ -74,10 +108,14 @@ class Controller extends GetxController {
   void resetAll() {
     titleController.clear();
     priceController.clear();
+    actualPriceController.clear();
     descriptionController.clear();
+    brandNameController.clear();
+    stockController.clear();
     image = '';
     isImagePicked.value = false;
     resetStatus();
+    categoryValue.value = 'Breakfast';
   }
 
   void changeBool() {
@@ -106,4 +144,27 @@ class Controller extends GetxController {
       print('Url' + image);
     });
   }
+
+  chnageTitle(String title) {
+    titleController.text = title;
+  }
+
+  Future<void> updateProduct(String id) async {
+    // if (image.isNotEmpty) {
+    //   updateImage();
+    // }
+    return reference.doc(id).update({
+      'title': title,
+      'offerprice': price,
+      'priceactual': actualprice,
+      'description': description,
+      // 'imgurl': image,
+      'time': DateTime.now(),
+      'category': categoryValue.value,
+      'brandname': brandname,
+      'stock': stock
+    }).then((value) => print('Data Updated Successfully'));
+  }
+
+  updateImage() {}
 }

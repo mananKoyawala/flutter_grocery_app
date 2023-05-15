@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:grocery_plus/Presentation/Screens/HomeScreen.dart';
+import 'package:grocery_plus/Presentation/Screens/ListScreen.dart';
 import 'package:grocery_plus/Presentation/Screens/SplashScreen.dart';
 import 'Presentation/Routes/AppRoutes.dart';
+import 'Presentation/Screens/Admin/AdminListProducts.dart';
 import 'Presentation/Screens/PhoneVerificationScreen1.dart';
 import 'Presentation/Utils/Constants.dart';
 
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: _appRoute.onGenerateRoute,
       debugShowCheckedModeBanner: false,
       // home: Authentication().handleAuthState(),
-      home: HomeScreen(),
+      home: AdminListProducts(),
     );
   }
 }

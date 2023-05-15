@@ -63,7 +63,6 @@ class _SnacksScreenState extends State<SnacksScreen> {
       print('No More data');
     }
   }
-  // ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {

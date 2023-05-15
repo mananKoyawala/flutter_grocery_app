@@ -34,7 +34,7 @@ class AddProductScreen extends StatelessWidget {
           controller.resetAll();
           FocusManager.instance.primaryFocus?.unfocus();
 
-          dialogSuccess(Get.context!);
+          dialogSuccess(Get.context!).then((value) => Nav.pop(Get.context!));
         } else {
           ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
               content: Text('Please Select Product Image Once again')));
@@ -163,12 +163,30 @@ class AddProductScreen extends StatelessWidget {
                             hintStyle: const TextStyle(),
                             focus: false,
                             mainColor: Colors.grey,
-                            labelText: "Price",
+                            labelText: "Offer Price",
                             textInputAction: TextInputAction.next,
                             textInputType: TextInputType.number,
                             obsecureText: false,
                             borderRadius: 8,
                             controller: controller.priceController,
+                            funValidate: (val) {
+                              if (val != null && val.isEmpty) {
+                                return "Price required";
+                              }
+                              return null;
+                            }),
+                        sizeH25(),
+                        TextFFeild(
+                            border: true,
+                            hintStyle: const TextStyle(),
+                            focus: false,
+                            mainColor: Colors.grey,
+                            labelText: "Actual Price",
+                            textInputAction: TextInputAction.next,
+                            textInputType: TextInputType.number,
+                            obsecureText: false,
+                            borderRadius: 8,
+                            controller: controller.actualPriceController,
                             funValidate: (val) {
                               if (val != null && val.isEmpty) {
                                 return "Price required";
@@ -196,103 +214,109 @@ class AddProductScreen extends StatelessWidget {
                               return null;
                             }),
                         sizeH25(),
-                        TextFW500(
-                          text: 'Status',
-                          fontSize: 18,
-                          textcolor: textColor1,
-                        ),
-                        sizeH10(),
-                        Obx(
-                          () => Row(
-                            children: [
-                              CustomeRadioButton(
-                                  onTap: () => controller.changeStatus(),
-                                  isEnabled: controller.isActive.value,
-                                  title: 'Active'),
-                              CustomeRadioButton(
-                                  onTap: () => controller.changeStatus(),
-                                  isEnabled: controller.isDeactive.value,
-                                  title: 'Deactive'),
-                            ],
-                          ),
-                        ),
-                        sizeH25(),
-                        TextFW500(
-                            text: 'Category',
-                            fontSize: 16,
-                            textcolor: textColor1),
-                        sizeH10(),
-                        Obx(
-                          () => InputDecorator(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: radius(10),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 5),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFW500(
+                              text: 'Status',
+                              fontSize: 18,
+                              textcolor: textColor1,
                             ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: controller.categoryValue.value,
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                items: controller.category.map((String items) {
-                                  return DropdownMenuItem(
-                                    value: items,
-                                    child: Text(items),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  controller.chnageValue(newValue!);
-                                },
+                            sizeH10(),
+                            Obx(
+                              () => Row(
+                                children: [
+                                  CustomeRadioButton(
+                                      onTap: () => controller.changeStatus(),
+                                      isEnabled: controller.isActive.value,
+                                      title: 'Active'),
+                                  CustomeRadioButton(
+                                      onTap: () => controller.changeStatus(),
+                                      isEnabled: controller.isDeactive.value,
+                                      title: 'Deactive'),
+                                ],
                               ),
                             ),
-                          ),
+                            sizeH25(),
+                            TextFW500(
+                                text: 'Category',
+                                fontSize: 16,
+                                textcolor: textColor1),
+                            sizeH10(),
+                            Obx(
+                              () => InputDecorator(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: radius(10),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: controller.categoryValue.value,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items:
+                                        controller.category.map((String items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      controller.chnageValue(newValue!);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            sizeH25(),
+                            TextFW500(
+                                text: 'Brand Name',
+                                fontSize: 16,
+                                textcolor: textColor1),
+                            sizeH10(),
+                            TextFFeild(
+                                border: true,
+                                hintStyle: const TextStyle(),
+                                focus: false,
+                                mainColor: Colors.grey,
+                                textInputAction: TextInputAction.next,
+                                textInputType: TextInputType.text,
+                                obsecureText: false,
+                                borderRadius: 8,
+                                controller: controller.brandNameController,
+                                funValidate: (val) {
+                                  if (val != null && val.isEmpty) {
+                                    return "Brand Name required";
+                                  }
+                                  return null;
+                                }),
+                            sizeH25(),
+                            TextFW500(
+                                text: 'Available Stock (in KG)',
+                                fontSize: 18,
+                                textcolor: textColor1),
+                            sizeH10(),
+                            TextFFeild(
+                                border: true,
+                                hintStyle: const TextStyle(),
+                                focus: false,
+                                mainColor: Colors.grey,
+                                hintText: "Stock like 100.50",
+                                textInputType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
+                                obsecureText: false,
+                                borderRadius: 8,
+                                controller: controller.stockController,
+                                funValidate: (val) {
+                                  if (val != null && val.isEmpty) {
+                                    return "Avialable Stck required";
+                                  }
+                                  return null;
+                                }),
+                          ],
                         ),
-                        sizeH25(),
-                        TextFW500(
-                            text: 'Brand Name',
-                            fontSize: 16,
-                            textcolor: textColor1),
-                        sizeH10(),
-                        TextFFeild(
-                            border: true,
-                            hintStyle: const TextStyle(),
-                            focus: false,
-                            mainColor: Colors.grey,
-                            textInputAction: TextInputAction.next,
-                            textInputType: TextInputType.text,
-                            obsecureText: false,
-                            borderRadius: 8,
-                            controller: controller.brandNameController,
-                            funValidate: (val) {
-                              if (val != null && val.isEmpty) {
-                                return "Brand Name required";
-                              }
-                              return null;
-                            }),
-                        sizeH25(),
-                        TextFW500(
-                            text: 'Available Stock (in KG)',
-                            fontSize: 18,
-                            textcolor: textColor1),
-                        sizeH10(),
-                        TextFFeild(
-                            border: true,
-                            hintStyle: const TextStyle(),
-                            focus: false,
-                            mainColor: Colors.grey,
-                            hintText: "Stock like 100.50",
-                            textInputType: TextInputType.number,
-                            textInputAction: TextInputAction.done,
-                            obsecureText: false,
-                            borderRadius: 8,
-                            controller: controller.stockController,
-                            funValidate: (val) {
-                              if (val != null && val.isEmpty) {
-                                return "Avialable Stck required";
-                              }
-                              return null;
-                            }),
                         sizeH25(),
                         sizeH25()
                       ],

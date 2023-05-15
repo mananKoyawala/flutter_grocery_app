@@ -26,6 +26,10 @@ class DP {
   }
 }
 
+unfocus() {
+  FocusManager.instance.primaryFocus?.unfocus();
+}
+
 class Nav {
   static push(BuildContext context, String routeName) {
     return Navigator.pushNamed(context, routeName);
