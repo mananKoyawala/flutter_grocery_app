@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: _appRoute.onGenerateRoute,
       debugShowCheckedModeBanner: false,
       // home: Authentication().handleAuthState(),
-      home: AdminListProducts(),
+      home: SplashScreen(),
     );
   }
 }

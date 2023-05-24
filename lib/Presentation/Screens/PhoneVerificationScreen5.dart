@@ -5,6 +5,7 @@ import 'package:grocery_plus/Package/Constants.dart';
 import 'package:grocery_plus/Package/CustomePadding.dart';
 import 'package:grocery_plus/Package/CustomeTexts.dart';
 import 'package:grocery_plus/Package/RippleEffectContainer.dart';
+import 'package:grocery_plus/Presentation/Screens/HomeScreen.dart';
 import 'package:grocery_plus/Presentation/Screens/MainScreen.dart';
 import 'package:grocery_plus/Presentation/Screens/ProductNotFound.dart';
 import 'package:grocery_plus/Presentation/Utils/Constants.dart';
@@ -145,7 +146,7 @@ class PhoneVerificationScreen5 extends StatelessWidget {
                   backgroundColor: themeColor,
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (_) => MainScreen(),
+                      builder: (_) => HomeScreen(),
                       maintainState: true,
                     ));
                   }),
